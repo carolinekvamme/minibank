@@ -1,0 +1,14 @@
+body{
+    background-color: #313638;
+    color: white; 
+    text-align: center;
+}
+p{
+    font-size: 30px;
+}
+.inn{
+    color: green;
+}
+.ut{
+    color: red; 
+}

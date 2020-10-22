@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Minibank</title>
+</head>
+<body>
+    <p>Din saldo er:</p>
+    <p id="saldo"></p>
+    <input type="text" id="input">
+    <button id="btn">Ta ut</button>
+    <button id="btnInnskudd">Sett inn</button>
+    <p id="uttak"></p>
+    <p id="innskudd"></p>
+    <p>Transaksjoner</p>
+    <p id="vis"></p>
+
+    <script>
+        var saldo = document.getElementById("saldo");
+        var input = document.getElementById("input");
+        var btn = document.getElementById("btn");
+        var btnInnskudd = document.getElementById("btnInnskudd");
+        var uttak = document.getElementById("uttak");
+        var innskudd = document.getElementById("innskudd");
+        var vis = document.getElementById("vis");
+        var array = [];
+
+        var saldoNaa = 15000;
+        saldo.innerHTML = saldoNaa; 
+        uttak.innerHTML = "Du har ikke tatt ut noe enda";
+    
+        function minibankUt(){
+            saldoNaa = saldoNaa - Number(input.value);
+            saldo.innerHTML = saldoNaa;
+            uttak.innerHTML = "Du tok ut " + Number(input.value);
+            innskudd.innerHTML = ""; 
+            transaksjoner(0, Number(input.value)); // 0 = Ut
+            if(saldoNaa < 0){
+                saldo.innerHTML = saldoNaa; 
+                uttak.innerHTML = "Du tok ikke ut noe";
+                innskudd.innerHTML = ""; 
+                alert("Du har ikke nok penger");
+            } 
+        }
+        function minibankInn(){
+            saldoNaa = saldoNaa + Number(input.value);
+            saldo.innerHTML = saldoNaa;
+            innskudd.innerHTML = "Du satt inn " + Number(input.value); 
+            uttak.innerHTML = "";
+            transaksjoner(1, Number(input.value));
+            
+        }
+        
+        function transaksjoner(innUt, belop){
+            array.push({verdi: Number(input.value), type: innUt});
+            document.getElementById("vis").innerHTML = "";
+            for (let index = 0; index < array.length; index++) {
+                const element = array[index];     
+                if (array[index].type === 0){
+                    document.getElementById("vis").innerHTML += `<li class="inn"> ${array[index].verdi} </li>`;    
+                } else{
+                    document.getElementById("vis").innerHTML += `<li class="ut"> ${array[index].verdi} </li>` 
+                } 
+            }             
+        }
+       
+
+
+
+        btn.onclick = minibankUt; 
+        btnInnskudd.onclick = minibankInn; 
+    </script>
+    
+</body>
+</html>
